@@ -20,8 +20,8 @@ trait Activity extends _root_.android.app.Activity{
 }
 
 object ActivityHelper{
-  import _root_.android.view.View.{OnClickListener,OnLongClickListener, OnFocusChangeListener}
-  import _root_.android.view.{MenuItem, Menu, SubMenu}
+  import _root_.android.view.View._
+  import _root_.android.view.{MenuItem, Menu, SubMenu, KeyEvent, MotionEvent}
   import scala.android.view._
   
   implicit def funcToClicker1(f:_root_.android.view.View => Unit):OnClickListener = 
@@ -44,6 +44,26 @@ object ActivityHelper{
     new OnFocusChangeListener() { def onFocusChange(v:_root_.android.view.View, 
                                         hasFocus:Boolean) = f.apply(v,hasFocus)}
   
+  implicit def funcToKeyListener2(f:(Int, KeyEvent) => Boolean):OnKeyListener =
+    new OnKeyListener() { 
+      def onKey(v:_root_.android.view.View, keyCode:Int, event:KeyEvent) = 
+        f.apply(keyCode,event)
+    }
+  
+  implicit def funcToKeyListener3(f:(_root_.android.view.View, Int, KeyEvent) => Boolean):OnKeyListener =
+    new OnKeyListener() { 
+      def onKey(v:_root_.android.view.View, keyCode:Int, event:KeyEvent) = 
+        f.apply(v,keyCode,event)
+    }
+  
+  implicit def funcToTouchListener1(f:MotionEvent => Boolean):OnTouchListener =
+    new OnTouchListener(){ 
+      def onTouch(v:_root_.android.view.View, event:MotionEvent) = 
+        f.apply(event)
+    }
+  
+  implicit def viewToRichView(v:_root_.android.view.View):scala.android.view.View = new scala.android.view.View(v)
+  implicit def richViewToView(v:scala.android.view.View):_root_.android.view.View = v.base
   implicit def menuItemToRichMenuItem(item:MenuItem):RichMenuItem = new RichMenuItem(item)
   implicit def richMenuItemToMenuItem(item:RichMenuItem):MenuItem = item.base
   implicit def menuToRichMenu(menu:Menu):RichMenu = new RichMenu(menu)
