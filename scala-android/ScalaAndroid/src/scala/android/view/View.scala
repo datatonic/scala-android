@@ -140,3 +140,10 @@ class View(base:_root_.android.view.View) {
 }
 
 case class Position(x:Int, y:Int)
+
+object View{
+  implicit def imageViewToRichImageView(imageView:_root_.android.widget.ImageView) =
+    new scala.android.widget.ImageView(imageView)
+  implicit def richImageViewToImageView(imageView:scala.android.widget.ImageView) =
+    imageView.baseImageView
+}
