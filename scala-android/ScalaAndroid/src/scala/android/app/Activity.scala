@@ -63,7 +63,7 @@ object ActivityHelper{
     }
   
   implicit def viewToRichView(v:_root_.android.view.View):scala.android.view.View = new scala.android.view.View(v)
-  implicit def richViewToView(v:scala.android.view.View):_root_.android.view.View = v.base
+  implicit def richViewToView(view:scala.android.view.View):_root_.android.view.View = view.base
   implicit def menuItemToRichMenuItem(item:MenuItem):RichMenuItem = new RichMenuItem(item)
   implicit def richMenuItemToMenuItem(item:RichMenuItem):MenuItem = item.base
   implicit def menuToRichMenu(menu:Menu):RichMenu = new RichMenu(menu)

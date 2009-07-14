@@ -5,7 +5,8 @@ class ImageView(baseImageView:_root_.android.widget.ImageView) extends scala.and
 	import _root_.android.net.Uri
 	import PorterDuff.Mode
  
-	def baseline = baseImageView.getBaseline
+	override def base = baseImageView
+	override def baseline = baseImageView.getBaseline
 	def drawable = baseImageView.getDrawable
 	def imageMatrix = baseImageView.getImageMatrix
 	def scaleType = baseImageView.getScaleType
