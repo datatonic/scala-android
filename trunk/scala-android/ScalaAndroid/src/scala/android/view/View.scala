@@ -8,7 +8,8 @@ import _root_.android.view.ViewGroup._
 import _root_.android.view.TouchDelegate
 import scala.android.app.ActivityHelper._
 
-class View(base:_root_.android.view.View) {
+class View(baseView:_root_.android.view.View) {
+  def base = baseView
   def animation = base.getAnimation
   def applicationWindowToken = base.getApplicationWindowToken
   def background = base.getBackground
@@ -145,5 +146,5 @@ object View{
   implicit def imageViewToRichImageView(imageView:_root_.android.widget.ImageView) =
     new scala.android.widget.ImageView(imageView)
   implicit def richImageViewToImageView(imageView:scala.android.widget.ImageView) =
-    imageView.baseImageView
+    imageView.base
 }
